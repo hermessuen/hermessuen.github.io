@@ -1,0 +1,25 @@
+
+a{
+	text-decoration: none;
+}
+
+li{
+	list-style: none;
+	float:left;
+	margin-left: 100px
+
+}
+
+.nav{
+	float:left;
+}
+
+.content{
+	float:left;
+}
+
+body {
+ 
+
+}
+

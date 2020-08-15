@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Schoolbell:300,400,700,900" rel="stylesheet">
     <!-- MAIN STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <script src = "js/script.js"> </script>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
 	        <div class="row">
 	            <div class="col-md-4">
 	                <div class="logo">
-	                    <h2><a href="index.html"> Intro to Web!</a></h2>
+	                    <h2 id = "main text"><a  href="index.html"> Intro to Web!</a></h2>
 	                </div>
 	            </div>
 	            <div class="col-md-8">
@@ -44,10 +45,11 @@
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-md-12">
-	                <div class="header-text text-center">
-	                    <h1>intro to webdev</h1>
-	                    <h2>web designer/web developer</h2>
-	                    <a href="projects.html">my projects</a>
+	                <div  class="header-text text-center">
+	                    <h1 id = "text">intro to webdev</h1>
+	                    <h2 id = "my_description">web designer/web developer</h2>
+	                	
+	                    <button type = "button" id = "mainButton" onclick="changeText()">Who am I</button>
 	                </div>
 	            </div>
 	        </div>

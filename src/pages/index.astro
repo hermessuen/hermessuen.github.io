@@ -1,0 +1,88 @@
+---
+import katex from 'katex';
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import PaperList from '../components/PaperList.astro';
+import { getPosts, getPapers } from '../lib/content';
+
+const kelly = katex.renderToString(String.raw`W^*(X \mid Y) - W^*(X) = I(X;Y)`, {
+  displayMode: true,
+});
+const posts = (await getPosts()).slice(0, 5);
+const papers = (await getPapers()).slice(0, 3);
+---
+
+<Base>
+  <figure class="epigraph">
+    <div set:html={kelly} />
+    <figcaption>
+      In a race with fair odds, side information <var>Y</var> raises the best achievable growth
+      rate of wealth by exactly the information it carries about the outcome <var>X</var>.
+      Kelly, 1956.
+    </figcaption>
+  </figure>
+
+  <section class="statement">
+    <p>
+      Forecasting complex systems, the ones made of billions of people deciding at once, is among
+      the most important and useful things intelligence can do.
+    </p>
+    <p>
+      I also believe it is one of the last fields free from AI. The difficult part is the framing: choosing which quantities matter,
+      which assumptions survive contact with people, and which field’s tools apply. That takes
+      human intuition, and I think it is where human mathematical research, aided by AI, still has
+      the most to do. LLMs alone can't solve this.
+    </p>
+    <p>
+      My work sits at the borders between information theory, game theory, physics, causality,
+      reinforcement learning, and complexity science. I'm betting that these are the fields most relevant to forecasting in the age of AI.
+    </p>
+    <p>
+      Markets are the test. Having worked in quant finance, I am convinced this is the hardest forecasting problem there is. Every idea here is set up to try to make money in the financial system.
+    </p>
+    <p>This site is where I write up what I learn and publish papers as they’re finished.</p>
+  </section>
+
+  <section>
+    <h2><a href="/writing/">Writing</a></h2>
+    <PostList posts={posts} />
+  </section>
+
+  <section>
+    <h2><a href="/papers/">Papers</a></h2>
+    <PaperList papers={papers} />
+  </section>
+</Base>
+
+<style>
+  .epigraph {
+    margin: 0 0 3.5rem;
+  }
+  .epigraph :global(.katex-display) {
+    margin: 0;
+    text-align: left;
+  }
+  .epigraph :global(.katex-display > .katex) {
+    text-align: left;
+    font-size: clamp(1.1rem, 5.8vw, 1.85rem);
+  }
+  .epigraph figcaption {
+    max-width: 30rem;
+    margin-top: 1rem;
+  }
+  .epigraph var {
+    font-style: italic;
+  }
+  .statement p:first-child {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+  h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h2 a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+  }
+</style>

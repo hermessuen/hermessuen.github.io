@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/content';
+
+interface Props {
+  posts: CollectionEntry<'writing'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.length === 0 ? (
+  <p class="empty">No essays published yet.</p>
+) : (
+  <ul class="entries">
+    {posts.map((post) => (
+      <li>
+        <span>
+          <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+          {post.data.draft && <span class="draft">draft</span>}
+        </span>
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .entries {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 1rem;
+    margin-bottom: 0.6rem;
+  }
+  a {
+    color: var(--ink);
+    text-decoration-color: var(--rule);
+  }
+  a:hover {
+    text-decoration-color: currentColor;
+  }
+  time,
+  .draft {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .draft {
+    font-style: italic;
+    margin-left: 0.4rem;
+  }
+  .empty {
+    color: var(--muted);
+  }
+</style>

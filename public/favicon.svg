@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    text { fill: #1c2638; font: italic 26px 'STIX Two Text', Georgia, serif; }
+    @media (prefers-color-scheme: dark) { text { fill: #dce1ea; } }
+  </style>
+  <text x="16" y="24" text-anchor="middle">h</text>
+</svg>

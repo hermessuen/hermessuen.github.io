@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import PaperList from '../../components/PaperList.astro';
+import { getPapers } from '../../lib/content';
+
+const papers = await getPapers();
+---
+
+<Base title="Papers" description="Papers and preprints.">
+  <h1>Papers</h1>
+  <PaperList papers={papers} />
+</Base>

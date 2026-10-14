@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  papers: CollectionEntry<'papers'>[];
+}
+
+const { papers } = Astro.props;
+---
+
+{papers.length === 0 ? (
+  <p class="empty">No papers published yet.</p>
+) : (
+  <ul class="papers">
+    {papers.map(({ data }) => {
+      const href = data.arxiv ?? data.pdf;
+      return (
+        <li>
+          {href ? <a class="title" href={href}>{data.title}</a> : <span class="title">{data.title}</span>}
+          <p class="meta">
+            {data.authors.join(', ')}. {data.venue ? `${data.venue}, ` : ''}{data.date.getUTCFullYear()}.
+            {data.draft && <em> Draft.</em>}
+          </p>
+          <details>
+            <summary>Abstract</summary>
+            <p>{data.abstract}</p>
+          </details>
+        </li>
+      );
+    })}
+  </ul>
+)}
+
+<style>
+  .papers {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 1.75rem;
+  }
+  .title {
+    color: var(--ink);
+    text-decoration-color: var(--rule);
+  }
+  a.title:hover {
+    text-decoration-color: currentColor;
+  }
+  .meta {
+    margin: 0.15rem 0 0.25rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  summary {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  details p {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .empty {
+    color: var(--muted);
+  }
+</style>

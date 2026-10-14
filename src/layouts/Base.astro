@@ -1,0 +1,104 @@
+---
+import '@fontsource/stix-two-text/400.css';
+import '@fontsource/stix-two-text/400-italic.css';
+import '@fontsource/stix-two-text/600.css';
+import 'katex/dist/katex.min.css';
+import '../styles/global.css';
+import { SITE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/writing/', label: 'Writing' },
+  { href: '/papers/', label: 'Papers' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <a class="name" href="/">{SITE.author}</a>
+        <nav aria-label="Main">
+          {nav.map(({ href, label }) => (
+            <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>
+              {label}
+            </a>
+          ))}
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="colophon">
+        <a href="/rss.xml">RSS</a>
+        <a href={SITE.github}>GitHub</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .masthead a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .name {
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+  nav {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.95rem;
+  }
+  nav a {
+    color: var(--muted);
+  }
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--ink);
+  }
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 0.3em;
+  }
+  .colophon {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+  }
+  .colophon a {
+    color: var(--muted);
+  }
+</style>

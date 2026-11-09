@@ -1,27 +1,14 @@
 ---
-import katex from 'katex';
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
 import PaperList from '../components/PaperList.astro';
 import { getPosts, getPapers } from '../lib/content';
 
-const kelly = katex.renderToString(String.raw`W^*(X \mid Y) - W^*(X) = I(X;Y)`, {
-  displayMode: true,
-});
 const posts = (await getPosts()).slice(0, 5);
 const papers = (await getPapers()).slice(0, 3);
 ---
 
 <Base>
-  <figure class="epigraph">
-    <div set:html={kelly} />
-    <figcaption>
-      In a race with fair odds, side information <var>Y</var> raises the best achievable growth
-      rate of wealth by exactly the information it carries about the outcome <var>X</var>.
-      Kelly, 1956.
-    </figcaption>
-  </figure>
-
   <section class="statement">
     <p>
       Forecasting complex systems, the ones made of billions of people deciding at once, is among
@@ -55,24 +42,6 @@ const papers = (await getPapers()).slice(0, 3);
 </Base>
 
 <style>
-  .epigraph {
-    margin: 0 0 3.5rem;
-  }
-  .epigraph :global(.katex-display) {
-    margin: 0;
-    text-align: left;
-  }
-  .epigraph :global(.katex-display > .katex) {
-    text-align: left;
-    font-size: clamp(1.1rem, 5.8vw, 1.85rem);
-  }
-  .epigraph figcaption {
-    max-width: 30rem;
-    margin-top: 1rem;
-  }
-  .epigraph var {
-    font-style: italic;
-  }
   .statement p:first-child {
     font-size: 1.2rem;
     line-height: 1.5;
